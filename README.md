@@ -9,7 +9,7 @@ If you have issues please read first the atlassian docs before open an issue.
 ## Start it up
 
 Run the following command:
-1. ```curl -L https://raw.githubusercontent.com/Hendrik44/docker-compose-jira/master/docker-compose.yml```
+1. ```curl -O https://raw.githubusercontent.com/Hendrik44/docker-compose-jira/master/docker-compose.yml```
 2. Change the Database password and other settings in docker-compose-file like proxy ...
 3. Run the container ```docker-compose up -d```
 

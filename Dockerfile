@@ -37,6 +37,7 @@ RUN set -x \
 
 # Run this container as non-root user/account.
 RUN useradd -d /home/"${JIRA_USER}" -m -s /bin/bash -G users "${JIRA_USER}"
+RUN echo "${JIRA_USER} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 USER "${JIRA_USER}":"${JIRA_USER}"
 
 # Expose default HTTP connector port.
