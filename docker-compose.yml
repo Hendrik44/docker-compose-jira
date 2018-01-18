@@ -1,0 +1,53 @@
+version: '2'
+
+services:
+  jira:
+    restart: always
+    depends_on:
+      - 'postgresql'
+    image: hendrik44/docker-compose-jira:latest
+    container_name: jirasoftware
+    hostname: jirasoftware
+    environment:
+      VIRTUAL_HOST: localhost
+      CATALINA_OPTS: '-Xms1024m -Xmx1024m -XX:+UseG1GC -Datlassian.plugins.enable.wait=300'
+      X_PROXY_NAME: jira.yourdomain.com
+      X_PROXY_PORT: 443
+      X_PROXY_SCHEME: https
+    networks:
+      - jiranet
+      # - crowdnet 
+    volumes:
+      - jiradata:/var/atlassian/jira
+    ports:
+      - '8080:8080'
+    links:
+      - 'postgresql:postgresql'
+
+  postgresql:
+    restart: always
+    image: sameersbn/postgresql:latest
+    container_name: postgresql
+    hostname: postgresql
+    environment:
+      - DEBUG=false
+      - DB_USER=jira
+      - DB_PASS=password
+      - DB_NAME=jiradb
+      - DB_EXTENSION=pg_trgm
+    volumes:
+      - postgresqldata_jira:/var/lib/postgresql
+    networks:
+      - jiranet
+
+volumes:
+  jiradata:
+    external: false
+  postgresqldata_jira:
+    external: false
+
+networks:
+  jiranet:
+    driver: bridge
+  #crowdnet:
+  #  driver: bridge
