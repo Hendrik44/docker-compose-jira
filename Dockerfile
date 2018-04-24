@@ -3,7 +3,7 @@ FROM openjdk:8
 # Configuration variables.
 ENV JIRA_HOME     /var/atlassian/jira
 ENV JIRA_INSTALL  /opt/atlassian/jira
-ENV JIRA_VERSION  7.8.2
+ENV JIRA_VERSION  7.9.1
 ENV JIRA_USER     jirauser
 
 # Create a non-root user/account to run inside this container
